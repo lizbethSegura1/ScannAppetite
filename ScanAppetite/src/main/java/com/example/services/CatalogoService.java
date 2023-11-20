@@ -17,7 +17,7 @@ public class CatalogoService {
 	@Autowired
 	private CatalogoRepository repository;
 	public List<Catalogo>getCatalogo(){
-		// coment
+		// coment2
 		return repository.findAll();
 	}
 }
