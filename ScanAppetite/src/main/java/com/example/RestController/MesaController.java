@@ -13,7 +13,7 @@ public class MesaController {
 	    private MesaService mesaService;
 
 	    @PostMapping("/{mesaId}/cambiar-estado")
-	    public ResponseEntity<Void> cambiarEstadoMesa(@PathVariable Long mesaId, @RequestParam String nuevoEstado) {
+	    public ResponseEntity<Void> cambiarEstadoMesa(@PathVariable String mesaId, @RequestParam String nuevoEstado) {
 	        mesaService.cambiarEstadoMesa(mesaId, nuevoEstado);
 	        return ResponseEntity.noContent().build();
 	    }
