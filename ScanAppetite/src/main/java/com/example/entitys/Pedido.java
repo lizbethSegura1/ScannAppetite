@@ -2,28 +2,31 @@ package com.example.entitys;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
 public class Pedido {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "int(10)")
 	private Long id;
 
 	private int estado;
 
-	@Column(name = "TipoPago")
-	private String tipoPago;
+	@Column(name = "Tipo_Pago")
+	private String tipo_pago;
 
 	@Column(name = "Hora")
 	private java.sql.Timestamp hora;
+	
+	
 
 	@ManyToOne
 	@JoinColumn(name = "MesaID")
@@ -35,7 +38,7 @@ public class Pedido {
 		super();
 		this.id = id;
 		this.estado = estado;
-		this.tipoPago = tipoPago;
+		this.tipo_pago = tipoPago;
 		this.hora = hora;
 		this.mesa = mesa;
 	}
@@ -56,12 +59,12 @@ public class Pedido {
 		this.estado = estado;
 	}
 
-	public String getTipoPago() {
-		return tipoPago;
+	public String getTipo_pago() {
+		return tipo_pago;
 	}
 
-	public void setTipoPago(String tipoPago) {
-		this.tipoPago = tipoPago;
+	public void setTipo_pago(String tipoPago) {
+		this.tipo_pago = tipoPago;
 	}
 
 	public java.sql.Timestamp getHora() {

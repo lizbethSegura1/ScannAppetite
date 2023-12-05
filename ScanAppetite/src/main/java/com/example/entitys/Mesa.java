@@ -1,12 +1,10 @@
 package com.example.entitys;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 
 @Entity
 public class Mesa {
@@ -16,8 +14,21 @@ public class Mesa {
     private String id;
 
     private String ubicacion;
+    
+    @Column(name="estado",columnDefinition="char(255)")
     private String estado;
-    public Mesa() {
+    
+
+    @Column(name = "RestauranteID") // Asegúrate de que este nombre coincida con la columna en la base de datos
+    private String restauranteId;
+    
+    public String getRestauranteId() {
+		return restauranteId;
+	}
+	public void setRestauranteId(String restauranteId) {
+		this.restauranteId = restauranteId;
+	}
+	public Mesa() {
     	
     }
 	public Mesa(String id, String ubicacion, String estado) {

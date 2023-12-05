@@ -10,6 +10,6 @@ import com.example.entitys.Mesa;
 
 @Repository
 public interface MesaRepository extends JpaRepository<Mesa, String> {
-	List<Mesa> findByRestauranteIdRestaurante(String restauranteId);
+	List<Mesa> findByRestauranteId(String restauranteId);
 	Optional<Mesa> findById(String MesaId);
 }

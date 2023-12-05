@@ -1,31 +1,29 @@
 package com.example.entitys;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
 public class Restaurante {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
+	
     private String direccion;
     
     @Column(name = "HoraApertura")
-    private java.sql.Timestamp horaApertura;
+    private java.sql.Time horaApertura;
 
     @Column(name = "HoraCierre")
-    private java.sql.Timestamp horaCierre;
+    private java.sql.Time horaCierre;
 
-    private String title;
+ 
 
     @ManyToOne
     @JoinColumn(name = "MesaID")
@@ -33,14 +31,13 @@ public class Restaurante {
     public Restaurante() {
     	
     }
-	public Restaurante(String id, String direccion, Timestamp horaApertura, Timestamp horaCierre, String title,
+	public Restaurante(String id, String direccion, Time horaApertura, Time horaCierre, String title,
 			Mesa mesa) {
 		super();
 		this.id = id;
 		this.direccion = direccion;
 		this.horaApertura = horaApertura;
 		this.horaCierre = horaCierre;
-		this.title = title;
 		this.mesa = mesa;
 	}
 
@@ -60,29 +57,22 @@ public class Restaurante {
 		this.direccion = direccion;
 	}
 
-	public java.sql.Timestamp getHoraApertura() {
+	public java.sql.Time getHoraApertura() {
 		return horaApertura;
 	}
 
-	public void setHoraApertura(java.sql.Timestamp horaApertura) {
+	public void setHoraApertura(java.sql.Time horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 
-	public java.sql.Timestamp getHoraCierre() {
+	public java.sql.Time getHoraCierre() {
 		return horaCierre;
 	}
 
-	public void setHoraCierre(java.sql.Timestamp horaCierre) {
+	public void setHoraCierre(java.sql.Time horaCierre) {
 		this.horaCierre = horaCierre;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 	public Mesa getMesa() {
 		return mesa;

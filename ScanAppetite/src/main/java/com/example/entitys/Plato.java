@@ -1,12 +1,15 @@
 package com.example.entitys;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Plato {
@@ -18,64 +21,66 @@ public class Plato {
     private double precio;
     private int stock;
     private String descripcion;
-
+    
+ //  @Column(name = "catalogoId", insertable = false, updatable = false)
+   //public String catalogo_Id;
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "CatalogoId")
-    private Catalogo catalogo;
-
+    @JoinColumn(name = "catalogo_id") // Evita que Hibernate actualice esta columna
+    public Catalogo catalogo;
+    
+    @OneToMany(mappedBy = "plato")
+    private List<CatalogoPlato> catalogoPlatos;
+    
     public Plato() {
-    
     }
-	public Plato(String id, double precio, int stock, String descripcion, Catalogo catalogo) {
-		super();
-		this.id = id;
-		this.precio = precio;
-		this.stock = stock;
-		this.descripcion = descripcion;
-		this.catalogo = catalogo;
-	}
 
-	public String getId() {
-		return id;
-	}
+    public Plato(String id, double precio, int stock, String descripcion, Catalogo catalogo) {
+        super();
+        this.id = id;
+        this.precio = precio;
+        this.stock = stock;
+        this.descripcion = descripcion;
+        this.catalogo = catalogo;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public double getPrecio() {
-		return precio;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
+    public double getPrecio() {
+        return precio;
+    }
 
-	public int getStock() {
-		return stock;
-	}
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    public int getStock() {
+        return stock;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public Catalogo getCatalogo() {
-		return catalogo;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setCatalogo(Catalogo catalogo) {
-		this.catalogo = catalogo;
-	}
-    
-    
+    public Catalogo getCatalogo() {
+        return catalogo;
+    }
 
-	
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
+    }
 }
