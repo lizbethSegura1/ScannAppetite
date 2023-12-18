@@ -41,16 +41,18 @@ public class Plato {
 
 	@Column(name="price")
 	private BigDecimal price;
+	
+	//@Column(name="CatalogoId")
+	//private String catalogoId;
 										
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "catalogoId") 
+	@JoinColumn(name = "catalogo_id") 
 	public Catalogo catalogo;
 
-	@OneToMany(mappedBy = "plato")
-	private List<CatalogoPlato> catalogoPlatos;
+	//@OneToMany(mappedBy = "plato")
+	//private List<CatalogoPlato> catalogoPlatos;
 	@Column(name = "time")
     private LocalDateTime time;
 	
-	private Catalogo catalogos;
+	//private Catalogo catalogos;
 }

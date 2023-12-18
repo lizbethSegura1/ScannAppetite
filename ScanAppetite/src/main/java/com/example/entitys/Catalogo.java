@@ -42,9 +42,9 @@ public class Catalogo {
 	private List<Plato> platos;
 
 
-	@JdbcTypeCode(SqlTypes.JSON)
-	@ManyToMany
-	@JoinTable(name = "catalogo_plato", joinColumns = @JoinColumn(name = "catalogoId"), inverseJoinColumns = @JoinColumn(name = "PlatoId"))
+	//@JdbcTypeCode(SqlTypes.JSON)
+	//@ManyToMany
+	//@JoinTable(name = "catalogo_plato", joinColumns = @JoinColumn(name = "catalogoId"), inverseJoinColumns = @JoinColumn(name = "PlatoId"))
 
 
 	public List<Plato> getPlatos() {

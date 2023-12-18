@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entitys.Catalogo;
-import com.example.entitys.CatalogoPlato;
+
 import com.example.entitys.Plato;
 import com.example.entitys.Restaurante;
 import com.example.services.CatalogoService;
@@ -58,17 +58,20 @@ public class RestauranteController {
 				// Cambiar el estado de la mesa a "O" (ocupada)
 				mesaService.cambiarEstadoMesa(mesaId, "O");
 
-				// Crea objeto CatalogoPlato para la respuesta
-				log.info("Antes de crear CatalogoPlato");
-				CatalogoPlato catalogoPlato = new CatalogoPlato(catalogo.get(0), platos);
-				log.info("Después de crear CatalogoPlato");
+				/* Crea objeto CatalogoPlato para la respuesta
+				//log.info("Antes de crear CatalogoPlato");
+				//CatalogoPlato catalogoPlato = new CatalogoPlato(catalogo.get(0), platos);
+				//log.info("Después de crear CatalogoPlato");
 				// objeto CatalogoPlato en el cuerpo de la respuesta
-				return new ResponseEntity<>(catalogoPlato, HttpStatus.OK);
+				//return new ResponseEntity<>(catalogoPlato, HttpStatus.OK);
+				 				 */
+				return new ResponseEntity<>(catalogo, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>("No hay catálogo disponible en este momento", HttpStatus.NOT_FOUND);
 			}
 		} else {
 			return new ResponseEntity<>("La mesa no está libre", HttpStatus.BAD_REQUEST);
 		}
+			
 	}
 }
