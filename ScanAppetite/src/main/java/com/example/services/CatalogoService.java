@@ -24,8 +24,7 @@ public class CatalogoService {
 	private PlatoRepository platoRepository;
 
 	public List<Catalogo> obtenerCatalogoPorRestauranteYHorario(Restaurante restaurante, Time hora) {
-		return catalogoRepository.findByRestauranteAndHorarioInicioBeforeAndHorarioFinAfter(restaurante,
-				hora, hora);
+		return catalogoRepository.findByRestauranteAndHorarioInicioBeforeAndHorarioFinAfter(restaurante, hora, hora);
 	}
 
 	public List<Catalogo> getCatalogo() {
@@ -46,17 +45,15 @@ public class CatalogoService {
 		return catalogos;
 	}
 
-
 	public List<Plato> obtenerPlatosPorCatalogoId(String CatalogoId) {
-	    Optional<Catalogo> optionalCatalogo = catalogoRepository.findById(CatalogoId);
+		Optional<Catalogo> optionalCatalogo = catalogoRepository.findById(CatalogoId);
 
-	    if (optionalCatalogo.isPresent()) {
-	        Catalogo catalogo = optionalCatalogo.get();
-	        return catalogo.getPlatos();  
-	    } else {
-	        throw new NoSuchElementException("Catálogo no encontrado con ID: " + CatalogoId);
-	    }
+		if (optionalCatalogo.isPresent()) {
+			Catalogo catalogo = optionalCatalogo.get();
+			return catalogo.getPlatos();
+		} else {
+			throw new NoSuchElementException("Catálogo no encontrado con ID: " + CatalogoId);
+		}
 	}
 
-	
 }

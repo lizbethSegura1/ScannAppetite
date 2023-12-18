@@ -1,5 +1,5 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
 import java.util.Date;
 import java.util.HashSet;

@@ -1,5 +1,5 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -30,7 +30,7 @@ public class Plato implements java.io.Serializable {
 	private String name;
 	private BigDecimal price;
 	private Date time;
-	private Set cestas = new HashSet(0);
+	private Set cestaPlatos = new HashSet(0);
 
 	public Plato() {
 	}
@@ -40,12 +40,12 @@ public class Plato implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Plato(Catalogo catalogo, String name, BigDecimal price, Date time, Set cestas) {
+	public Plato(Catalogo catalogo, String name, BigDecimal price, Date time, Set cestaPlatos) {
 		this.catalogo = catalogo;
 		this.name = name;
 		this.price = price;
 		this.time = time;
-		this.cestas = cestas;
+		this.cestaPlatos = cestaPlatos;
 	}
 
 	@Id
@@ -99,12 +99,12 @@ public class Plato implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "plato")
-	public Set getCestas() {
-		return this.cestas;
+	public Set getCestaPlatos() {
+		return this.cestaPlatos;
 	}
 
-	public void setCestas(Set cestas) {
-		this.cestas = cestas;
+	public void setCestaPlatos(Set cestaPlatos) {
+		this.cestaPlatos = cestaPlatos;
 	}
 
 }

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.example.dto.CatalogoDto;
 import com.example.dto.PlatoDto;
 import com.example.entitys.Catalogo;
+import com.example.entitys.Cesta;
 //import com.example.entitys.Cesta;
 import com.example.entitys.Plato;
 
@@ -19,10 +20,9 @@ import com.example.entitys.Plato;
  */
 public class Mapper {
 
-	private static PlatoDto platoDtoMapper(Plato d) {
-		return null;
-	//	return PlatoDto.builder().id(d.getId()).price(d.getPrice()).name(d.getName())
-	//			.catalogo(catalogoDtoMapper(d.getCatalogo())).build();
+	private static PlatoDto platoDtoMapper(Plato d) {		
+		return PlatoDto.builder().id(d.getId()).price(d.getPrice()).name(d.getName())
+				.catalogo(catalogoDtoMapper(d.getCatalogo())).build();
 	}
 
 	private static CatalogoDto catalogoDtoMapper(Catalogo c) {
@@ -33,32 +33,32 @@ public class Mapper {
 		return list.stream().map(Mapper::platoDtoMapper).collect(Collectors.toList());
 	}
 
-	/*
-	 * public static List<PlatoDto> cestaToPlatoDto(List<Cesta> cesta) { return
-	 * cesta.stream() .flatMap(unaCesta -> unaCesta.getPlatos().stream())
-	 * .map(Mapper::platoDtoMapper) .collect(Collectors.toList()); }
-	 */
+//	public static List<PlatoDto> cestaToPlatoDto(List<Cesta> cesta) {
+	//	return cesta.stream().map(Mapper::cestaToPlatoDto).collect(Collectors.toList());
+	//}
 
-	/*
-	 * public static BigDecimal getTotalPrice(List<PlatoDto> platos) { return
-	 * platos.stream() .map(PlatoDto::getPrice) .reduce(BigDecimal.ZERO,
-	 * BigDecimal::add); }
-	 */
+	public static BigDecimal getTotalPrice(List<PlatoDto> platos) {
+		return platos.stream().map(PlatoDto::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 
 	public static List<CatalogoDto> catalogoToCatalogoDTO(List<Catalogo> list) {
 		return list.stream().map(Mapper::catalogoDtoMapper).collect(Collectors.toList());
 	}
 
 	public static List<CatalogoDto> platoToCatalogoDTO(List<Plato> list) {
-		return null;
-		/*
-		 * return list.stream() .filter(distinctByKey(Plato::getCatalogo)) .map(d ->
-		 * catalogoDtoMapper(d.getCatalogo())) .collect(Collectors.toList());
-		 */
+
+		return list.stream().filter(distinctByKey(Plato::getCatalogo)).map(d -> catalogoDtoMapper(d.getCatalogo()))
+				.collect(Collectors.toList());
+
 	}
 
 	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
 		Set<Object> seen = ConcurrentHashMap.newKeySet();
 		return t -> seen.add(keyExtractor.apply(t));
+	}
+
+	public static List<PlatoDto> cestaToPlatoDto(List<Cesta> cestas) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

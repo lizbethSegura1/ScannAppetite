@@ -1,12 +1,10 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,37 +16,48 @@ import javax.persistence.Table;
 @Table(name = "cesta_plato", catalog = "scanappetite")
 public class CestaPlato implements java.io.Serializable {
 
-	private CestaPlatoId id;
+	private int id;
 	private Cesta cesta;
+	private Plato plato;
 
 	public CestaPlato() {
 	}
 
-	public CestaPlato(CestaPlatoId id, Cesta cesta) {
+	public CestaPlato(int id, Cesta cesta, Plato plato) {
 		this.id = id;
 		this.cesta = cesta;
+		this.plato = plato;
 	}
 
-	@EmbeddedId
+	@Id
 
-	@AttributeOverrides({ @AttributeOverride(name = "platoId", column = @Column(name = "PlatoID", nullable = false)),
-			@AttributeOverride(name = "cestaId", column = @Column(name = "CestaId", nullable = false)) })
-	public CestaPlatoId getId() {
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(CestaPlatoId id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CestaId", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "CestaId", nullable = false)
 	public Cesta getCesta() {
 		return this.cesta;
 	}
 
 	public void setCesta(Cesta cesta) {
 		this.cesta = cesta;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PlatoID", nullable = false)
+	public Plato getPlato() {
+		return this.plato;
+	}
+
+	public void setPlato(Plato plato) {
+		this.plato = plato;
 	}
 
 }

@@ -1,5 +1,5 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,7 +28,6 @@ public class Catalogo implements java.io.Serializable {
 	private Date horarioInicio;
 	private Date horarioFin;
 	private Set platos = new HashSet(0);
-	private Set platoTemps = new HashSet(0);
 
 	public Catalogo() {
 	}
@@ -39,14 +38,13 @@ public class Catalogo implements java.io.Serializable {
 	}
 
 	public Catalogo(String id, Restaurante restaurante, String descripcion, Date horarioInicio, Date horarioFin,
-			Set platos, Set platoTemps) {
+			Set platos) {
 		this.id = id;
 		this.restaurante = restaurante;
 		this.descripcion = descripcion;
 		this.horarioInicio = horarioInicio;
 		this.horarioFin = horarioFin;
 		this.platos = platos;
-		this.platoTemps = platoTemps;
 	}
 
 	@Id
@@ -106,15 +104,6 @@ public class Catalogo implements java.io.Serializable {
 
 	public void setPlatos(Set platos) {
 		this.platos = platos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo")
-	public Set getPlatoTemps() {
-		return this.platoTemps;
-	}
-
-	public void setPlatoTemps(Set platoTemps) {
-		this.platoTemps = platoTemps;
 	}
 
 }

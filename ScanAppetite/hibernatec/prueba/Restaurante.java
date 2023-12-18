@@ -1,5 +1,5 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,12 +25,10 @@ public class Restaurante implements java.io.Serializable {
 	private String id;
 	private Mesa mesa;
 	private String direccion;
-	private Date horaApertura;
-	private Date horaCierre;
 	private String denominacion;
 	private String title;
-	private Date horaApertura_1;
-	private Date horaCierre_1;
+	private Date horaApertura;
+	private Date horaCierre;
 	private Set catalogos = new HashSet(0);
 	private Set mesas = new HashSet(0);
 
@@ -41,17 +39,15 @@ public class Restaurante implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Restaurante(String id, Mesa mesa, String direccion, Date horaApertura, Date horaCierre, String denominacion,
-			String title, Date horaApertura_1, Date horaCierre_1, Set catalogos, Set mesas) {
+	public Restaurante(String id, Mesa mesa, String direccion, String denominacion, String title, Date horaApertura,
+			Date horaCierre, Set catalogos, Set mesas) {
 		this.id = id;
 		this.mesa = mesa;
 		this.direccion = direccion;
-		this.horaApertura = horaApertura;
-		this.horaCierre = horaCierre;
 		this.denominacion = denominacion;
 		this.title = title;
-		this.horaApertura_1 = horaApertura_1;
-		this.horaCierre_1 = horaCierre_1;
+		this.horaApertura = horaApertura;
+		this.horaCierre = horaCierre;
 		this.catalogos = catalogos;
 		this.mesas = mesas;
 	}
@@ -86,26 +82,6 @@ public class Restaurante implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	@Temporal(TemporalType.TIME)
-	@Column(name = "HoraApertura", length = 15)
-	public Date getHoraApertura() {
-		return this.horaApertura;
-	}
-
-	public void setHoraApertura(Date horaApertura) {
-		this.horaApertura = horaApertura;
-	}
-
-	@Temporal(TemporalType.TIME)
-	@Column(name = "HoraCierre", length = 15)
-	public Date getHoraCierre() {
-		return this.horaCierre;
-	}
-
-	public void setHoraCierre(Date horaCierre) {
-		this.horaCierre = horaCierre;
-	}
-
 	@Column(name = "Denominacion", length = 120)
 	public String getDenominacion() {
 		return this.denominacion;
@@ -126,22 +102,22 @@ public class Restaurante implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_apertura", length = 15)
-	public Date getHoraApertura_1() {
-		return this.horaApertura_1;
+	public Date getHoraApertura() {
+		return this.horaApertura;
 	}
 
-	public void setHoraApertura_1(Date horaApertura_1) {
-		this.horaApertura_1 = horaApertura_1;
+	public void setHoraApertura(Date horaApertura) {
+		this.horaApertura = horaApertura;
 	}
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_cierre", length = 15)
-	public Date getHoraCierre_1() {
-		return this.horaCierre_1;
+	public Date getHoraCierre() {
+		return this.horaCierre;
 	}
 
-	public void setHoraCierre_1(Date horaCierre_1) {
-		this.horaCierre_1 = horaCierre_1;
+	public void setHoraCierre(Date horaCierre) {
+		this.horaCierre = horaCierre;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurante")

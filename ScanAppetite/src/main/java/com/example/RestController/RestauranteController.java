@@ -53,7 +53,7 @@ public class RestauranteController {
 
 			// Verificar si se encontró un catálogo para la hora actual
 			if (!catalogo.isEmpty()) {
-				List<Plato> platos = catalogoService.obtenerPlatosPorCatalogoId(catalogo.get(0).getId());
+				//List<Plato> platos = catalogoService.obtenerPlatosPorCatalogoId(catalogo.get(0).getId());
 
 				// Cambiar el estado de la mesa a "O" (ocupada)
 				mesaService.cambiarEstadoMesa(mesaId, "O");

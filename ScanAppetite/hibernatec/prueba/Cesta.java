@@ -1,5 +1,5 @@
 package prueba;
-// Generated 18 dic 2023 20:02:34 by Hibernate Tools 4.3.6.Final
+// Generated 18 dic 2023 23:11:31 by Hibernate Tools 4.3.6.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,7 +18,6 @@ import javax.persistence.Table;
 public class Cesta implements java.io.Serializable {
 
 	private int id;
-	private Plato plato;
 	private String mesaId;
 	private Set cestaPlatos = new HashSet(0);
 
@@ -32,9 +29,8 @@ public class Cesta implements java.io.Serializable {
 		this.mesaId = mesaId;
 	}
 
-	public Cesta(int id, Plato plato, String mesaId, Set cestaPlatos) {
+	public Cesta(int id, String mesaId, Set cestaPlatos) {
 		this.id = id;
-		this.plato = plato;
 		this.mesaId = mesaId;
 		this.cestaPlatos = cestaPlatos;
 	}
@@ -48,16 +44,6 @@ public class Cesta implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PlatoId")
-	public Plato getPlato() {
-		return this.plato;
-	}
-
-	public void setPlato(Plato plato) {
-		this.plato = plato;
 	}
 
 	@Column(name = "MesaID", nullable = false)
