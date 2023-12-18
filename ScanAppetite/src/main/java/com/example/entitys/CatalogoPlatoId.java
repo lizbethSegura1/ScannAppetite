@@ -1,27 +1,24 @@
 package com.example.entitys;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+
 //Clase para representar la clave primaria compuesta
+
 public class CatalogoPlatoId {
 
 	private String catalogo;
-	private String plato;
+	private Long plato;
 	
-	public CatalogoPlatoId(String catalogo, String plato) {
-		super();
-		this.catalogo = catalogo;
-		this.plato = plato;
-	}
-	public String getCatalogo() {
-		return catalogo;
-	}
-	public void setCatalogo(String catalogo) {
-		this.catalogo = catalogo;
-	}
-	public String getPlato() {
-		return plato;
-	}
-	public void setPlato(String plato) {
-		this.plato = plato;
-	}
-
 }

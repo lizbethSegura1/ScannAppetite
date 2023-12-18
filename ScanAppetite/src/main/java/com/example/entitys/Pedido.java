@@ -1,15 +1,30 @@
 package com.example.entitys;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 
 @Entity
 public class Pedido {
@@ -25,63 +40,15 @@ public class Pedido {
 
 	@Column(name = "Hora")
 	private java.sql.Timestamp hora;
-	
-	
 
 	@ManyToOne
 	@JoinColumn(name = "MesaID")
 	private Mesa mesa;
-	public Pedido() {
-		
-	}
-	public Pedido(Long id, int estado, String tipoPago, Timestamp hora, Mesa mesa) {
-		super();
-		this.id = id;
-		this.estado = estado;
-		this.tipo_pago = tipoPago;
-		this.hora = hora;
-		this.mesa = mesa;
-	}
 
-	public Long getId() {
-		return id;
-	}
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime time;
 
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
-	public String getTipo_pago() {
-		return tipo_pago;
-	}
-
-	public void setTipo_pago(String tipoPago) {
-		this.tipo_pago = tipoPago;
-	}
-
-	public java.sql.Timestamp getHora() {
-		return hora;
-	}
-
-	public void setHora(java.sql.Timestamp hora) {
-		this.hora = hora;
-	}
-
-	public Mesa getMesa() {
-		return mesa;
-	}
-
-	public void setMesa(Mesa mesa) {
-		this.mesa = mesa;
-	}
-
-	
 }

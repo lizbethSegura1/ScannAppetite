@@ -44,10 +44,9 @@ public class RestauranteController {
 
 			// Obtener la hora actual
 			LocalDateTime horaActual = LocalDateTime.now();
-			
-			
-			
-			java.sql.Time hora=java.sql.Time.valueOf(String.format("%d:%d:00", horaActual.getHour(), horaActual.getMinute()));
+
+			java.sql.Time hora = java.sql.Time
+					.valueOf(String.format("%d:%d:00", horaActual.getHour(), horaActual.getMinute()));
 
 			// Obtener el catálogo para el restaurante y la hora actual
 			List<Catalogo> catalogo = catalogoService.obtenerCatalogoPorRestauranteYHorario(restaurante, hora);
@@ -55,6 +54,9 @@ public class RestauranteController {
 			// Verificar si se encontró un catálogo para la hora actual
 			if (!catalogo.isEmpty()) {
 				List<Plato> platos = catalogoService.obtenerPlatosPorCatalogoId(catalogo.get(0).getId());
+
+				// Cambiar el estado de la mesa a "O" (ocupada)
+				mesaService.cambiarEstadoMesa(mesaId, "O");
 
 				// Crea objeto CatalogoPlato para la respuesta
 				log.info("Antes de crear CatalogoPlato");

@@ -1,6 +1,9 @@
 package com.example.entitys;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,77 +13,44 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 
 @Entity
+@Table(name="plato")
 public class Plato {
 
-    @Id
-    @Column(name = "ID")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private Long id;
 
-    private double precio;
-    private int stock;
-    private String descripcion;
-    
- //  @Column(name = "catalogoId", insertable = false, updatable = false)
-   //public String catalogo_Id;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "catalogo_id") // Evita que Hibernate actualice esta columna
-    public Catalogo catalogo;
-    
-    @OneToMany(mappedBy = "plato")
-    private List<CatalogoPlato> catalogoPlatos;
-    
-    public Plato() {
-    }
+	@Column(name = "name")
+	private String name;
 
-    public Plato(String id, double precio, int stock, String descripcion, Catalogo catalogo) {
-        super();
-        this.id = id;
-        this.precio = precio;
-        this.stock = stock;
-        this.descripcion = descripcion;
-        this.catalogo = catalogo;
-    }
+	@Column(name="price")
+	private BigDecimal price;
+										
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "catalogoId") 
+	public Catalogo catalogo;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Catalogo getCatalogo() {
-        return catalogo;
-    }
-
-    public void setCatalogo(Catalogo catalogo) {
-        this.catalogo = catalogo;
-    }
+	@OneToMany(mappedBy = "plato")
+	private List<CatalogoPlato> catalogoPlatos;
+	@Column(name = "time")
+    private LocalDateTime time;
+	
+	private Catalogo catalogos;
 }

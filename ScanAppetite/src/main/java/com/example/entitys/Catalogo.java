@@ -1,8 +1,10 @@
 package com.example.entitys;
 
 import java.sql.Time;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +16,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 @Entity
 public class Catalogo {
 
@@ -31,9 +41,12 @@ public class Catalogo {
 	@OneToMany(mappedBy = "catalogo", cascade = CascadeType.ALL)
 	private List<Plato> platos;
 
+
+	@JdbcTypeCode(SqlTypes.JSON)
 	@ManyToMany
-	@JoinTable(name = "catalogo_plato", joinColumns = @JoinColumn(name = "catalogo_id"), inverseJoinColumns = @JoinColumn(name = "PlatoId"))
-	
+	@JoinTable(name = "catalogo_plato", joinColumns = @JoinColumn(name = "catalogoId"), inverseJoinColumns = @JoinColumn(name = "PlatoId"))
+
+
 	public List<Plato> getPlatos() {
 		return platos;
 	}
@@ -42,61 +55,8 @@ public class Catalogo {
 		this.platos = platos;
 	}
 
-	public Catalogo(String id, String descripcion, Time horarioInicio, Time horarioFin, Restaurante restaurante) {
-		super();
-		Id = id;
-		this.descripcion = descripcion;
-		this.horarioInicio = horarioInicio;
-		this.horarioFin = horarioFin;
-		this.restaurante = restaurante;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "RestauranteID")
 	private Restaurante restaurante;
-
-	public Time getHorarioInicio() {
-		return horarioInicio;
-	}
-
-	public void setHorarioInicio(Time horarioInicio) {
-		this.horarioInicio = horarioInicio;
-	}
-
-	public Time getHorarioFin() {
-		return horarioFin;
-	}
-
-	public void setHorarioFin(Time horarioFin) {
-		this.horarioFin = horarioFin;
-	}
-
-	public Catalogo() {
-
-	}
-
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String Id) {
-		this.Id = Id;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
-
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}
 
 }

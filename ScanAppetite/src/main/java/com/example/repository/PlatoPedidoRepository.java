@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.entitys.Plato;
 
 @Repository
-public interface PlatoPedidoRepository extends JpaRepository<Plato, String>{
+public interface PlatoPedidoRepository extends JpaRepository<Plato, Long>{
 
 }
