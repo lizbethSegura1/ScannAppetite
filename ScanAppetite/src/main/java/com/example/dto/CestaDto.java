@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @ToString
 
-// no validation, send to basket page
+
 
 public class CestaDto {
     private List<PlatoDto> platos;

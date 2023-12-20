@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo</title>
+</head>
+<body>
+    <h1>Catalogo</h1>
+    <div th:each="catalogo : ${catalogos}">
+        <h2 th:text="${catalogo.id}"></h2>
+        <p th:text="${catalogo.restaurante.denominacion}"></p>
+        <!-- Agrega más campos según sea necesario -->
+    </div>
+</body>
+</html>

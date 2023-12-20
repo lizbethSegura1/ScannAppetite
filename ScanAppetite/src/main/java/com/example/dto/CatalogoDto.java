@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import java.util.List;
+
 import lombok.*;
 
 @Getter
@@ -9,9 +11,12 @@ import lombok.*;
 @Builder
 @ToString
 
-// no validation, send to main page in PageableDishesDTO
 
-public class CatalogoDto {
+public class CatalogoDto{
+    private String descripcion;
+    private String horarioInicio;
+    private String horarioFin;
+    private RestauranteDTO restaurante;
     private String id;
-    private String category;
+    private List<PlatoDto> platos;
 }

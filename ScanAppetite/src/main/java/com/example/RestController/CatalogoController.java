@@ -16,30 +16,29 @@ import com.example.entitys.Catalogo;
 import com.example.entitys.Restaurante;
 import com.example.services.CatalogoService;
 
-/*
+
 @RestController
 @RequestMapping("/catalogo")
 public class CatalogoController {
 
-    @Autowired
-    private CatalogoService catalogoService;
+	@Autowired
+	private CatalogoService catalogoService;
 
-    @GetMapping("/restaurante/")
-    public ResponseEntity<List<Catalogo>> obtenerCatalogoPorRestauranteYHora(
-            @PathVariable String restauranteId,
-            @RequestParam String hora) {
+	@GetMapping("/restaurante/")
+	public ResponseEntity<List<Catalogo>> obtenerCatalogoPorRestauranteYHora(@PathVariable String restauranteId,
+			@RequestParam String hora) {
 
-        Restaurante restaurante = new Restaurante();
-        restaurante.setId(restauranteId); // Puedes cargar el restaurante desde la base de datos según sea necesario
+		Restaurante restaurante = new Restaurante();
+		restaurante.setId(restauranteId);
 
-        LocalDateTime horaActual = LocalDateTime.parse(hora); // Ajusta el formato según tus necesidades
+		LocalDateTime horaActual = LocalDateTime.parse(hora);
 
-        try {
-            List<Catalogo> catalogo = catalogoService.obtenerCatalogoPorRestauranteYHorario(restaurante, horaActual);
-            return ResponseEntity.ok(catalogo);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+		try {
+			List<Catalogo> catalogo = catalogoService.obtenerCatalogoPorRestauranteYHorario(restaurante, horaActual);
+			return ResponseEntity.ok(catalogo);
+			
+		} catch (NoSuchElementException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 }
-*/

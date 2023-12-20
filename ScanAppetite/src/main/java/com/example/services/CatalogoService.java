@@ -1,7 +1,8 @@
 package com.example.services;
 
 import java.sql.Time;
-
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -55,5 +56,13 @@ public class CatalogoService {
 			throw new NoSuchElementException("Catálogo no encontrado con ID: " + CatalogoId);
 		}
 	}
+	
+
+	public List<Catalogo> obtenerCatalogoPorRestauranteYHorario(Restaurante restaurante, LocalDateTime hora) {
+        Timestamp horarioInicio = Timestamp.valueOf(hora);
+        Timestamp horarioFin = Timestamp.valueOf(hora.plusHours(1));
+
+        return catalogoRepository.findByRestauranteAndHorario(restaurante, horarioInicio, horarioFin);
+    }
 
 }

@@ -1,8 +1,7 @@
 package com.example.RestController;
 
-//import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 
-/*
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,50 +16,43 @@ import com.example.dto.ItemDto;
 import com.example.services.CestaService;
 import com.example.utils.Constants;
 
-/*
-
 @RestController
 @RequestMapping(value = "/ScanAppetite/cesta")
 public class CestaController {
-    private final CestaService cestaService;
-    private final Bundler bundler;
-    private final Logger log = LoggerFactory.getLogger(CestaController.class);
+	private final CestaService cestaService;
+	private final Bundler bundler;
+	private final Logger log = LoggerFactory.getLogger(CestaController.class);
 
-    
-    @Autowired
-    public CestaController(CestaService cestaService,
-            Bundler bundler) {
-        this.cestaService = cestaService;
-        this.bundler = bundler;
-    }
-*/
-    /**
-     * Get de  todos los platos de cestas para la cliente.
-     * @return CestaDto
-     */
-    /*public ResponseEntity<CestaDto> getPlato(@RequestParam String mesaId) {
-        log.info(bundler.getLogMsg(Constants.CESTA_ALL));
-        return ResponseEntity.ok(cestaService.findAllPlatosEnCesta(mesaId));
-    }
-    
+	@Autowired
+	public CestaController(CestaService cestaService, Bundler bundler) {
+		this.cestaService = cestaService;
+		this.bundler = bundler;
+	}
 
+	/**
+	 * Get de todos los platos de cestas para la cliente.
+	 * 
+	 * @return CestaDto
+	 */
+	public ResponseEntity<CestaDto> getPlato(@RequestParam String mesaId) {
+		log.info(bundler.getLogMsg(Constants.CESTA_ALL));
+		return ResponseEntity.ok(cestaService.findAllPlatosEnCesta(mesaId));
+	}
 
-    /**
-     * Eliminar de la cesta un artículo
-     * @param itemDto Plato id
-     */
-    //*@DeleteMapping("/delete")
-  /*  public void delete(@Valid @RequestBody ItemDto itemDto) {
-        log.info(bundler.getLogMsg(Constants.CESTA_DELETE) + itemDto.getItemId());
-        try {
-            cestaService.delete(itemDto.getItemId());
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    bundler.getLogMsg(Constants.CESTA_DELETE_DBE));
-        }
-    }
+	/**
+	 * Eliminar de la cesta un artículo
+	 * 
+	 * @param itemDto Plato id
+	 */
+	// *@DeleteMapping("/delete")
+	public void delete(@Valid @RequestBody ItemDto itemDto) {
+		log.info(bundler.getLogMsg(Constants.CESTA_DELETE) + itemDto.getItemId());
+		try {
+			cestaService.delete(itemDto.getItemId());
+		} catch (Exception e) {
+			log.warn(e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, bundler.getLogMsg(Constants.CESTA_DELETE_DBE));
+		}
+	}
 
-    }
-
-*/
+}

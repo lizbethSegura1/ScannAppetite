@@ -22,9 +22,9 @@ import com.example.services.RestauranteService;
 
 @RestController
 @RequestMapping("/ScanAppetite")
-public class RestauranteController {
+public class ScanAppetiteController {
 
-	private static final Logger log = Logger.getLogger(RestauranteController.class.getName());
+	private static final Logger log = Logger.getLogger(ScanAppetiteController.class.getName());
 
 	@Autowired
 	private CatalogoService catalogoService;
@@ -35,7 +35,7 @@ public class RestauranteController {
 	@Autowired
 	private RestauranteService restauranteService;
 
-	@GetMapping("/{restauranteId}/{mesaId}/catalogo")
+	@GetMapping("/{restauranteId}/{mesaId}")
 	public ResponseEntity<?> obtenerCatalogo(@PathVariable String restauranteId, @PathVariable String mesaId) {
 		// Verificar si la mesa está libre
 		if (mesaService.verificarMesaLibre(restauranteId, mesaId)) {
