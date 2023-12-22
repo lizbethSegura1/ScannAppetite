@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -64,6 +67,7 @@ public class Catalogo implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RestauranteID", nullable = false)
+	@JsonIgnore 
 	public Restaurante getRestaurante() {
 		return this.restaurante;
 	}
@@ -101,7 +105,8 @@ public class Catalogo implements java.io.Serializable {
 		this.horarioFin = horarioFin;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogo")
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "catalogo")
 	public List<Plato> getPlatos() {
 		return this.platos;
 	}

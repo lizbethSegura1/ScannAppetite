@@ -31,6 +31,9 @@ public interface CatalogoRepository extends JpaRepository<Catalogo, String> {
             @Param("restaurante") Restaurante restaurante,
             @Param("horarioInicio") Timestamp horarioInicio,
             @Param("horarioFin") Timestamp horarioFin);
+    
+    @Query("SELECT c FROM Catalogo c JOIN FETCH c.platos")
+    List<Catalogo> obtenerCatalogosConPlatos();
 }
     
 

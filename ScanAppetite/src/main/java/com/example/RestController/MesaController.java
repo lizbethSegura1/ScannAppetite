@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.services.MesaService;
 
-import ch.qos.logback.classic.Logger;
 @RestController
 
 public class MesaController {

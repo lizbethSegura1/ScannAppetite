@@ -1,5 +1,6 @@
 package com.example.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import com.example.dto.PlatoDto;
 import com.example.entitys.Cesta;
 import com.example.entitys.CestaPlato;
 import com.example.entitys.Mesa;
+import com.example.repository.CestaPlatoRepository;
 import com.example.repository.CestaRepository;
 import com.example.repository.PlatoRepository;
 import com.example.repository.RestauranteRepository;
@@ -31,13 +33,39 @@ public class CestaService {
 	private final PlatoRepository platoRepository;
 	private final RestauranteRepository restauranteRepository;
 	private final Bundler bundler;
+	private final CestaPlatoRepository cestaPlatoRespository;
 
 	@Autowired
-	public CestaService(CestaRepository cestaRepository, PlatoRepository platoRepository,RestauranteRepository restauranteRepository, Bundler bundler) {
+	public CestaService(CestaRepository cestaRepository, PlatoRepository platoRepository,
+			RestauranteRepository restauranteRepository, Bundler bundler, CestaPlatoRepository cestaPlatoRespository) {
 		this.cestaRepository = cestaRepository;
 		this.platoRepository = platoRepository;
 		this.restauranteRepository = restauranteRepository;
 		this.bundler = bundler;
+		this.cestaPlatoRespository = cestaPlatoRespository;
+	}
+
+	public CestaDto findAllPlatosEnCesta(String mesaId) {
+		List<Cesta> cestaUsuario = cestaRepository.findAllByMesaId(mesaId);
+
+		if (cestaUsuario.isEmpty()) {
+			throw new NoSuchElementException("No se encontró una cesta para la mesa con ID: " + mesaId);
+		}
+
+		List<PlatoDto> platosDto = new ArrayList<>();
+
+		for (Cesta cesta : cestaUsuario) {
+			for (CestaPlato cestaPlato : cesta.getCestaPlatos()) {
+				// Asegúrate de que estás obteniendo solo los platos seleccionados
+				if (cestaPlato.isSelected()) {
+					PlatoDto platoDto = new PlatoDto(); // Aquí debes hacer la conversión de Plato a PlatoDto
+					// Configura los atributos de platoDto 
+					platosDto.add(platoDto);
+				}
+			}
+		}
+
+		return CestaDto.builder().platos(platosDto).totalPrice(Mapper.getTotalPrice(platosDto)).build();
 	}
 
 	/**
@@ -46,18 +74,19 @@ public class CestaService {
 	 *
 	 * @param mesaId ID de la mesa asociada con la cesta
 	 * @return Lista de platos en la cesta
+	 * 
+	 *         public CestaDto findAllPlatosEnCesta(String mesaId) { List<Cesta>
+	 *         cestaUsuario = cestaRepository.findAllByMesaId(mesaId);
+	 * 
+	 *         if (cestaUsuario.isEmpty()) { throw new NoSuchElementException("No se
+	 *         encontró una cesta para la mesa con ID: " + mesaId); }
+	 * 
+	 *         List<PlatoDto> platosDto = Mapper.cestaToPlatoDto(cestaUsuario);
+	 * 
+	 *         return
+	 *         CestaDto.builder().platos(platosDto).totalPrice(Mapper.getTotalPrice(platosDto)).build();
+	 *         }
 	 */
-	public CestaDto findAllPlatosEnCesta(String mesaId) {
-		List<Cesta> cestas = cestaRepository.findAllByMesaId(mesaId);
-
-		if (cestas.isEmpty()) {
-			throw new NoSuchElementException("No se encontró una cesta para la mesa con ID: " + mesaId);
-		}
-
-		List<PlatoDto> platosDto = Mapper.cestaToPlatoDto(cestas);
-
-		return CestaDto.builder().platos(platosDto).totalPrice(Mapper.getTotalPrice(platosDto)).build();
-	}
 
 	@Transactional
 	public Cesta saveNewItem(@PathVariable String restauranteId, @PathVariable String mesaId, ItemDto itemDto) {
@@ -70,14 +99,11 @@ public class CestaService {
 				() -> new NoSuchElementException("Error message when dish is not found: " + itemDto.getItemId()));
 		// Crear una nueva cesta o recuperar la cesta existente asociada a la mesa
 		Optional<Restaurante> rest = restauranteRepository.findById(restauranteId);
-		Cesta cesta = cestaRepository.findByMesaId(mesaId).orElse(Cesta.builder()
-				.mesaId(mesaId)
-				.build());
+		Cesta cesta = cestaRepository.findByMesaId(mesaId).orElse(Cesta.builder().mesaId(mesaId).build());
 
 		// Agregar el platillo a la cesta
-		cesta.getCestaPlatos().add(CestaPlato.builder()
-				.cesta(cesta)
-				//.id(plato.getId())
+		cesta.getCestaPlatos().add(CestaPlato.builder().cesta(cesta)
+				// .id(plato.getId())
 				.build());
 
 		// Guardar la cesta en el repositorio
@@ -86,7 +112,6 @@ public class CestaService {
 		// Resto del código si es necesario...
 
 		return cesta;
-
 
 	}
 
@@ -99,11 +124,11 @@ public class CestaService {
 	@Transactional
 	public void delete(@NonNull Long id) {
 		/*
-	    List<Cesta> list = cestaRepository.findCestasByPlato_Id(id);
-	    for (Cesta cesta : list) {
-	        cestaRepository.delete(cesta);
-	    }*/
+		 * List<Cesta> list = cestaRepository.findCestasByPlato_Id(id); for (Cesta cesta
+		 * : list) { cestaRepository.delete(cesta); }
+		 */
 	}
+
 	/**
 	 * eliminar todos los artículos de la cesta de los usuarios
 	 * 
@@ -114,4 +139,3 @@ public class CestaService {
 		cestaRepository.deleteByMesaId(id);
 	}
 }
-

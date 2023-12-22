@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,6 +35,7 @@ public class Plato implements java.io.Serializable {
 	private String name;
 	private BigDecimal price;
 	private Date time;
+	private Boolean selected;
 	private List<CestaPlato> cestaPlatos = new ArrayList<CestaPlato>();
 
 	public Plato() {
@@ -42,12 +46,13 @@ public class Plato implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Plato(Catalogo catalogo, String name, BigDecimal price, Date time, List<CestaPlato> cestas) {
+	public Plato(Catalogo catalogo, String name, BigDecimal price, Date time, List<CestaPlato> cestas , Boolean selected) {
 		this.catalogo = catalogo;
 		this.name = name;
 		this.price = price;
 		this.time = time;
 		this.cestaPlatos = cestas;
+		this.selected = selected;
 	}
 
 	@Id
@@ -62,7 +67,9 @@ public class Plato implements java.io.Serializable {
 		this.id = id;
 	}
 
+	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinColumn(name = "catalogo_id", nullable = false)
 	public Catalogo getCatalogo() {
 		return this.catalogo;
@@ -100,7 +107,7 @@ public class Plato implements java.io.Serializable {
 		this.time = time;
 	}
 
-	
+	@JsonIgnore 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "plato")
 	public List<CestaPlato> getCestas() {
 		return this.cestaPlatos;
@@ -110,6 +117,7 @@ public class Plato implements java.io.Serializable {
 		this.cestaPlatos = cestas;
 	}
 
+	@JsonIgnore 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "plato")
 	public List<CestaPlato> getCestaPlatos() {
 		return this.cestaPlatos;
@@ -118,5 +126,15 @@ public class Plato implements java.io.Serializable {
 	public void setCestaPlatos(List<CestaPlato> cestaPlatos) {
 		this.cestaPlatos = cestaPlatos;
 	}
+
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
+	}
+	
+	
 
 }

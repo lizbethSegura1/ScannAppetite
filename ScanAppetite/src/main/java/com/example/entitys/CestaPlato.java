@@ -3,7 +3,6 @@ package com.example.entitys;
 
 import jakarta.persistence.Id;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +31,8 @@ public class CestaPlato implements java.io.Serializable {
 	private int id;
 	private Cesta cesta;
 	private Plato plato;
-
+	@Column(name = "selected")
+	private boolean selected;
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -65,4 +64,13 @@ public class CestaPlato implements java.io.Serializable {
 		this.plato = plato;
 	}
 
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	
 }
