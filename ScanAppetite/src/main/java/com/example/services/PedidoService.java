@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.entitys.Catalogo;
 import com.example.entitys.Pedido;
 import com.example.repository.PedidoRepository;
 
@@ -15,7 +14,7 @@ public class PedidoService {
 
 	private PedidoRepository repository;
 
-	public List<PedidoRepository> getPedido() {
+	public List<Pedido> getPedido() {
 		return repository.findAll();
 	}
 
