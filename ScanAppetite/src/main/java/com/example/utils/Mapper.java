@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 import com.example.dto.CatalogoDto;
 import com.example.dto.PlatoDto;
 import com.example.entitys.Catalogo;
-import com.example.entitys.Cesta;
-//import com.example.entitys.Cesta;
 import com.example.entitys.Plato;
 
 /**
@@ -21,7 +19,7 @@ import com.example.entitys.Plato;
 public class Mapper {
 
 	private static PlatoDto platoDtoMapper(Plato d) {		
-		return PlatoDto.builder().id(d.getId()).price(d.getPrice()).name(d.getName())
+		return PlatoDto.builder().id(d.getId()).price(d.getPrecio()).name(d.getNombre())
 				.catalogo(catalogoDtoMapper(d.getCatalogo())).build();
 	}
 
@@ -57,8 +55,4 @@ public class Mapper {
 		return t -> seen.add(keyExtractor.apply(t));
 	}
 
-	public static List<PlatoDto> cestaToPlatoDto(List<Cesta> cestas) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

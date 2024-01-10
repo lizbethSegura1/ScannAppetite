@@ -15,5 +15,7 @@ public class PlatoService {
     public List<Plato> getPlato() {
         return repository.findAll();
     }
+    
+    
 }
 

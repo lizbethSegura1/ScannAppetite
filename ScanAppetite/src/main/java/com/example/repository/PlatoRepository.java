@@ -16,7 +16,6 @@ public interface PlatoRepository extends JpaRepository<Plato, Long> {
 	List<Plato> findByCatalogo(Catalogo catalogo);
 
 	Optional<Plato> findById(Long long1);
+	
+	Plato findById(long id);
 }
-
-//findall plato/catalogo que devuleva 
-//lista de paltos del catalogo en el json generara una lita de platos y cada plato con un catalogo 

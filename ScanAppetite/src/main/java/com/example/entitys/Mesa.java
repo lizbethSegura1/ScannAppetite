@@ -23,38 +23,40 @@ public class Mesa implements java.io.Serializable {
 
 	
 	
-	private String id;
+	private Long id;
 	private Restaurante restaurante;
 	private String ubicacion;
 	private String estado;
 	private List<Restaurante> restaurantes = new ArrayList<Restaurante>();
-	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa")
+    private List<DetallesPago> detallesPago = new ArrayList<>();
 
 	public Mesa() {
 	}
 
-	public Mesa(String id, Restaurante restaurante) {
+	public Mesa(Long id, Restaurante restaurante) {
 		this.id = id;
 		this.restaurante = restaurante;
 	}
 
-	public Mesa(String id, Restaurante restaurante, String ubicacion, String estado, List restaurantes, List pedidos) {
+	public Mesa(Long id, Restaurante restaurante, String ubicacion, String estado, List restaurantes) {
 		this.id = id;
 		this.restaurante = restaurante;
 		this.ubicacion = ubicacion;
 		this.estado = estado;
 		this.restaurantes = restaurantes;
-		this.pedidos = pedidos;
+	
 	}
 
 	@Id
 
 	@Column(name = "ID", unique = true, nullable = false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -93,15 +95,6 @@ public class Mesa implements java.io.Serializable {
 
 	public void setRestaurantes(List restaurantes) {
 		this.restaurantes = restaurantes;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mesa")
-	public List<Pedido> getPedidos() {
-		return this.pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
 	}
 
 }

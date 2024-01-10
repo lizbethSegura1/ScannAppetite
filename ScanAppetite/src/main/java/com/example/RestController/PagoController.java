@@ -1,45 +1,29 @@
 package com.example.RestController;
 
-
-
-import org.springframework.web.bind.annotation.*;
-
-import com.example.services.PagoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.entitys.DetallesPago;
+import com.example.services.DetallesPagoService;
 
 @RestController
-@RequestMapping("/api/pago")
+@RequestMapping("/procesarPago")
 public class PagoController {
 
-    private final PagoService pagoService;
+    private final DetallesPagoService detallesPagoService;
 
-    public PagoController(PagoService pagoService) {
-        this.pagoService = pagoService;
+    @Autowired
+    public PagoController(DetallesPagoService detallesPagoService) {
+        this.detallesPagoService = detallesPagoService;
     }
 
-    @GetMapping("/formulario")
-    public String mostrarFormularioPago() {
-        return "formulario-pago";
+    @PostMapping("/{mesaId}")
+    public String procesarFormularioPago(@PathVariable Long mesaId, 
+                                         @RequestBody DetallesPago detallesPago) {
+        detallesPagoService.guardarDetallesPago(detallesPago, mesaId);
+        return "Pago procesado con éxito para la mesa " + mesaId;
     }
- /*
-    @PostMapping("/iniciar")
-    public ResponseEntity<String> iniciarPago(@RequestBody DetallesPago detallesPago) {
-        // Lógica para iniciar el proceso de pago y obtener la URL del formulario de pago
-        //String urlFormularioPago = pagoService.iniciarProcesoPago(detallesPago);
-
-        return ResponseEntity.ok(urlFormularioPago);
-    }
-
-    @PostMapping("/realizar-pago") // Integrar Redsys más adelante
-    public String realizarPago(@RequestParam double monto, Model model) {
-        boolean pagoExitoso = pagoService.procesarPago(monto);
-
-        if (pagoExitoso) {
-            model.addAttribute("mensaje", "¡Pago exitoso!");
-        } else {
-            model.addAttribute("mensaje", "El pago no pudo ser procesado");
-        }
-
-        return "resultado-pago";
-    }
-    */
 }

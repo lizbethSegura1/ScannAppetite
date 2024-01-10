@@ -1,12 +1,12 @@
 package com.example.entitys;
 
-public enum Status {
+public enum Estado {
 	NEW, PAYED, PAYMENT_CONFIRM, COOKING, DELIVERY, DONE;
 
-	private static final Status[] statuses = values();
+	private static final Estado[] statuses = values();
 
 	//Este método permite obtener el siguiente estado en la secuencia de estados
-	public Status next() {
+	public Estado next() {
 		return statuses[(this.ordinal() + 1) % statuses.length];
 	}
 }

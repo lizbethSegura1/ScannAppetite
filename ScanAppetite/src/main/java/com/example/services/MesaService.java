@@ -17,19 +17,25 @@ public class MesaService {
     private MesaRepository repository;
 
     @Transactional
-    public void cambiarEstadoMesa(String mesaId, String nuevoEstado) {
+    public void cambiarEstadoMesa(Long mesaId, String nuevoEstado) {
         Mesa mesa = repository.findById(mesaId)
                 .orElseThrow(() -> new NoSuchElementException("Mesa no encontrada con ID: " + mesaId));
-
-        // Actualizar el estado de la mesa
+       
         mesa.setEstado(nuevoEstado);
         repository.save(mesa);
     }
 
     @Transactional(readOnly = true)
-    public boolean verificarMesaLibre(String restauranteId, String mesaId) {
+ boolean verificarMesaLibre(String restauranteId, Long mesaId) {
         Optional<Mesa> optionalMesa = repository.findById(mesaId);
         return optionalMesa.map(mesa -> "L".equalsIgnoreCase(mesa.getEstado())).orElse(false);
     }
+    
+    @Transactional(readOnly = true)
+    public Mesa obtenerPorId(Long mesaId) {
+        return repository.findById(mesaId)
+                .orElseThrow(() -> new NoSuchElementException("Mesa no encontrada con ID: " + mesaId));
+    }
 }
+
 
