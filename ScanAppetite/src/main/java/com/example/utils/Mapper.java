@@ -31,10 +31,6 @@ public class Mapper {
 		return list.stream().map(Mapper::platoDtoMapper).collect(Collectors.toList());
 	}
 
-//	public static List<PlatoDto> cestaToPlatoDto(List<Cesta> cesta) {
-	//	return cesta.stream().map(Mapper::cestaToPlatoDto).collect(Collectors.toList());
-	//}
-
 	public static BigDecimal getTotalPrice(List<PlatoDto> platos) {
 		return platos.stream().map(PlatoDto::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}

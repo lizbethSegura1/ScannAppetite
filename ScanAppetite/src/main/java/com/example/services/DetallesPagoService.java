@@ -18,13 +18,13 @@ public class DetallesPagoService {
 
 	@Autowired
 	private MesaRepository mesaRepository;
+	
+	 public void guardarDetallesPago(DetallesPago detallesPago, Long mesaId) {
+	        Mesa mesa = mesaRepository.findById(mesaId)
+	                .orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID: " + mesaId));
+	        detallesPago.setMesa(mesa);
+	        detallesPagoRepository.save(detallesPago);
+	    }
 
-	@Transactional
-	public void guardarDetallesPago(DetallesPago detallesPago, Long mesaId) {
-		Mesa mesa = mesaRepository.findById(mesaId)
-				.orElseThrow(() -> new RuntimeException("Mesa no encontrada con ID: " + mesaId));
-		detallesPago.setMesa(mesa);
-		detallesPagoRepository.save(detallesPago);
-	}
 
 }

@@ -56,24 +56,16 @@ public class CatalogoService {
 			return new ResponseEntity<>("La mesa no está libre", HttpStatus.BAD_REQUEST);
 		}
 
-		// Obtener el restaurante por ID
 		Restaurante restaurante = restauranteService.obtenerRestaurantePorId(restauranteId);
-
-		// hora actual
 		LocalDateTime horaActual = LocalDateTime.now();
-		// Obtener el catálogo para el restaurante y la hora actual
 		List<Catalogo> catalogos = obtenerCatalogoPorRestauranteYHorario(restaurante, horaActual);
 
-		// Verificar si se encontró un catálogo para la hora actual
 		if (!catalogos.isEmpty()) {
-			// Asignar la lista de platos para el catálogo
-			catalogos.forEach(cat -> cat.setPlatos(obtenerPlatosPorCatalogoId(cat.getId())));
 
-			// Cambiar el estado de la mesa a "O" (ocupada)
+			catalogos.forEach(cat -> cat.setPlatos(obtenerPlatosPorCatalogoId(cat.getId())));
 			mesaService.cambiarEstadoMesa(mesaId, "O");
 			return new ResponseEntity<>(catalogos.get(0), HttpStatus.OK);
 		} else {
-			// No hay catálogo disponible en este momento
 			return new ResponseEntity<>("No hay catálogo disponible en este momento", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -99,10 +91,9 @@ public class CatalogoService {
 	}
 
 	public void procesarPlatosSeleccionados(List<Long> platosSeleccionados) {
-		// URL del backend donde procesarás la selección de platos
+
 		String backendUrl = "http://localhost:8080/procesar-seleccion";
 
-		// Configuración de encabezados para la solicitud
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -113,7 +104,5 @@ public class CatalogoService {
 		String respuesta = restTemplate.postForObject(backendUrl, requestEntity, String.class);
 
 	}
-	
-	
 
 }
