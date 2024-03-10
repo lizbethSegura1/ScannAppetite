@@ -1,84 +1,78 @@
 package com.example.entitys;
 
-import java.sql.Timestamp;
+import jakarta.persistence.Id;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 
 @Entity
-public class Pedido {
-
+@Table(name = "pedido", catalog = "scanappetite")
+public class Pedido implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private int estado;
-
-	@Column(name = "TipoPago")
-	private String tipoPago;
-
-	@Column(name = "Hora")
-	private java.sql.Timestamp hora;
-
-	@ManyToOne
-	@JoinColumn(name = "MesaID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "mesa_id", nullable = false)
 	private Mesa mesa;
-	public Pedido() {
-		
-	}
-	public Pedido(Long id, int estado, String tipoPago, Timestamp hora, Mesa mesa) {
-		super();
-		this.id = id;
-		this.estado = estado;
-		this.tipoPago = tipoPago;
-		this.hora = hora;
-		this.mesa = mesa;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "plato_id", nullable = false)
+	private Plato platoId;
+
+	@Column(name = "hora_pedido", nullable = false)
+	private LocalDateTime horaPedido;
+
+	@Column(name = "estado", nullable = false)
+	private String  estado;
+
+	@Transient
+	private List<Plato> platosEnCestaUsuario;
+
+	public boolean contienePlato(Long platoId) {
+		return platosEnCestaUsuario.stream().anyMatch(plato -> plato.getId().equals(platoId));
 	}
 
-	public Long getId() {
-		return id;
-	}
+	public void agregarPlato(Plato plato) {
+		if (platosEnCestaUsuario == null) {
+			platosEnCestaUsuario = new ArrayList<>();
+		}
 
-	public void setId(Long id) {
-		this.id = id;
+		platosEnCestaUsuario.add(plato);
 	}
+	 public void setEstado(Estado estado) {
+	        this.estado = estado.name(); 
+	    }
 
-	public int getEstado() {
-		return estado;
-	}
+	    public Estado getEstadoEnum() {
+	        return Estado.valueOf(this.estado);
+	    }
 
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
-	public String getTipoPago() {
-		return tipoPago;
-	}
-
-	public void setTipoPago(String tipoPago) {
-		this.tipoPago = tipoPago;
-	}
-
-	public java.sql.Timestamp getHora() {
-		return hora;
-	}
-
-	public void setHora(java.sql.Timestamp hora) {
-		this.hora = hora;
-	}
-
-	public Mesa getMesa() {
-		return mesa;
-	}
-
-	public void setMesa(Mesa mesa) {
-		this.mesa = mesa;
-	}
-
-	
+	   
 }

@@ -3,7 +3,9 @@ package com.example.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.entitys.Plato;
+
 @Repository
-public interface PlatoPedidoRepository extends JpaRepository<PlatoPedidoRepository, String>{
+public interface PlatoPedidoRepository extends JpaRepository<Plato, Long>{
 
 }
