@@ -7,5 +7,5 @@ import com.example.entitys.Restaurante;
 
 @Repository
 public interface RestauranteRepository extends JpaRepository<Restaurante, String> {
-	Optional<Restaurante> findById(String Id); //prueba
+	Optional<Restaurante> findById(String Id); 
 }
