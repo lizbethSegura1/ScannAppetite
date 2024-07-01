@@ -45,6 +45,19 @@
 		</dependency>
 	</dependencies>
 
+<distributionManagement>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/lizbethSegura1/ScannAppetite</url>
+  </repository>
+</distributionManagement>
+
+<repositories>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/lizbethSegura1/ScannAppetite</url>
+  </repository>
+</repositories>
 	<build>
 		<plugins>
 			<plugin>
