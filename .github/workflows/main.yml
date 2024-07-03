@@ -23,6 +23,6 @@ jobs:
         run: mvn clean package -f ScanAppetite/pom.xml
 
       - name: Upload JAR to GitHub Packages
-        run: mvn deploy -f ScanAppetite/pom.xml
+        run: mvn deploy -DuseGitHubPackages=true deploy -f ScanAppetite/pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
